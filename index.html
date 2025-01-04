@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 3.5em;
+      color: #ff6f61;
+      animation: glow 1s infinite alternate;
+      margin-bottom: 20px;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff6f61; }
+      to { text-shadow: 0 0 20px #ff3e41; }
+    }
+    p {
+      font-size: 1.5em;
+      margin: 10px 0 30px;
+      color: #ccc;
+    }
+    .candles {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .candle {
+      width: 20px;
+      height: 100px;
+      background: #ffcc00;
+      border-radius: 5px;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(255, 204, 0, 0.5);
+    }
+    .flame {
+      width: 12px;
+      height: 35px;
+      background: radial-gradient(circle, #ff4500 30%, #ffa500 70%);
+      border-radius: 50%;
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: flicker 0.2s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1); }
+      100% { transform: translateX(-50%) scale(1.1); }
+    }
+    button {
+      font-size: 1.2em;
+      padding: 12px 25px;
+      background: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      margin-top: 40px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background: #ff3e41;
+      transform: scale(1.1);
+    }
+    .fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      display: none;
+    }
+    .firework {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #ff0;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+    }
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+    .balloon {
+    position: absolute;
+    bottom: -150px;
+    width: 50px;
+    height: 70px;
+    background: radial-gradient(circle, #ff6f61 20%, #ff3e41 80%);
+    border-radius: 50%;
+    animation: float 6s infinite ease-in-out;
+  }
+  .balloon:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 2px;
+    height: 30px;
+    background: #fff;
+    transform: translateX(-50%);
+  }
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-300px); }
+    100% { transform: translateY(0); }
+  }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy Birthday, [Salsa ss]! 🎂</h1>
+  <p>Wishing you a day filled with love, joy, and amazing surprises!</p>
+  <div class="candles">
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+  </div>
+  <audio id="birthday-music" src="msc/Jamrud - Selamat Ulang Tahun (lyrics).mp3" autoplay loop></audio>
+  <button onclick="toggleMusic()">🔊 Toggle Music</button>
+
+  <button onclick="blowCandles()">Blow the Candles!</button>
+  <div class="fireworks" id="fireworks"></div>
+
+  <script>
+     const music = document.getElementById('birthday-music');
+  function toggleMusic() {
+    if (music.paused) {
+      music.play();
+    } else {
+      music.pause();
+    }
+  }
+  function releaseBalloons() {
+    for (let i = 0; i < 20; i++) {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = Math.random() * window.innerWidth + 'px';
+      balloon.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+      document.body.appendChild(balloon);
+
+      // Hapus balon setelah animasi selesai
+      setTimeout(() => balloon.remove(), 6000);
+    }
+  }
+
+  // Jalankan otomatis setelah lilin mati
+  setTimeout(releaseBalloons, 500);
+    function blowCandles() {
+      // Hide the flames
+      const flames = document.querySelectorAll('.flame');
+      flames.forEach(flame => flame.style.display = 'none');
+
+      // Show fireworks
+      const fireworksContainer = document.getElementById('fireworks');
+      fireworksContainer.style.display = 'block';
+
+      // Generate random fireworks
+      for (let i = 0; i < 30; i++) {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        firework.style.left = Math.random() * window.innerWidth + 'px';
+        firework.style.top = Math.random() * window.innerHeight + 'px';
+        firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        fireworksContainer.appendChild(firework);
+
+        // Remove the firework after animation
+        setTimeout(() => firework.remove(), 1000);
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    function launchConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    }
+  
+    // Jalankan confetti saat lilin mati
+    setTimeout(launchConfetti, 500);
+  </script>
+  
+</body>
+</html>
